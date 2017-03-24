@@ -17,7 +17,7 @@
                 <input type="text" class="form-control" name = "nouvelle_section" id="nouvelle_section">
               </div>
           </div>
-          <input type="hidden" name="section" value='.$row['section'].' />
+          <input type="hidden" name="section" value='.$section.' />
           <div class="form-group">
             <div class="col-sm-offset-4 col-sm-8">
               <input type="submit" class="btn btn-default" value = "Modifier" /><a href = "section.php" class="btn btn-default">Retour</a>
@@ -28,8 +28,13 @@
   $nouvelle_section = $_POST["nouvelle_section"];
 
   if (isset($nouvelle_section)) {
-    $query = $pdo->prepare("UPDATE section SET section =  '".$nouvelle_section."' WHERE section =  '".$section."'");
+    $query = $pdo->prepare("DELETE FROM section WHERE `section` = '".$section."'");
     $query->execute();
+
+    $query = $pdo->prepare("INSERT INTO section (section) VALUES ('".$nouvelle_section."')");
+    $query->execute();
+
+    header('Location: section.php');
   }
 
 

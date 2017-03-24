@@ -37,6 +37,7 @@
 
     echo "</tbody>
         </table>
+        <a class='btn btn-default btn-lg btn-block' href = 'ajoutsection.php'>Nouvelle Section</a>
       </div>";
 
 
