@@ -3,6 +3,7 @@
     include 'header.php';
     include 'loginBDD.php';
 
+    // Requete pour recupérer les données de la base étudiant
     $query = $pdo->prepare("SELECT * FROM etudiant");
     $query->execute();
 ?>
