@@ -46,13 +46,15 @@
           </div>
         </form>';
 
-  $nom = $_POST["nom"];
-  $prenom = $_POST["prenom"];
-  $mail = $_POST["mail"];
-  $date = $_POST["date"];
-  $section = $_POST["section"];
+  $nom = htmlentities($_POST["nom"]);
+  $prenom = htmlspecialchars($_POST["prenom"]);
+  $mail = htmlspecialchars($_POST["mail"]);
+  $date = htmlspecialchars($_POST["date"]);
+  $section = htmlspecialchars($_POST["section"]);
 
-  if (isset($nom)) {
+  echo "nom :".$nom."fin";
+
+  if (isset($_POST["nom"])) {
     $query = $pdo->prepare("INSERT INTO etudiant (mail, nom, prenom, date_naissance, section) VALUES ('".$mail."', '".$nom."', '".$prenom."', '".$date."', '".$section."')");
     $query->execute();
 

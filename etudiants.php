@@ -8,7 +8,7 @@
           <h1>Liste des étudiants <small>Back office</small></h1>
         </div>";
 
-  $query = $pdo->prepare("SELECT * FROM etudiant");
+  $query = $pdo->prepare("SELECT * FROM etudiant ORDER BY nom");
   $query->execute();
 
   echo "<table class='table table-striped'>

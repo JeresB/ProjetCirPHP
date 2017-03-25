@@ -3,8 +3,8 @@
   include 'loginBDD.php';
   include 'header.php';
 
-  $old_nom = $_POST["nom"];
-  $old_prenom = $_POST["prenom"];
+  $old_nom = htmlspecialchars($_POST["nom"]);
+  $old_prenom = htmlspecialchars($_POST["prenom"]);
 
   $query = $pdo->prepare("SELECT * FROM etudiant WHERE nom = '".$old_nom."' AND prenom = '".$old_prenom."'");
   $query->execute();
@@ -12,7 +12,7 @@
 
   echo "<div class='container'>
         <div class='page-header'>
-          <h1>Modifer l'étudiant : ".$old_nom." ".$old_prenom." <small> Back office</small></h1>
+          <h1>Modifer l'étudiant : ".$old_nom." ".$old_prenom." <small> Back office <a href = 'etudiants.php' class='btn btn-default'>Retour</a></small></h1>
         </div>";
 
   echo '<form class="form-horizontal" method="post" action="modifier.php">
@@ -96,18 +96,14 @@
             </form>';
 
 
-    $nom = $_POST["nouveau_nom"];
-    $prenom = $_POST["nouveau_prenom"];
-    $mail = $_POST["mail"];
-    $date = $_POST["date"];
-    $section = $_POST["section"];
+    $nom = htmlspecialchars($_POST["nouveau_nom"]);
+    $prenom = htmlspecialchars($_POST["nouveau_prenom"]);
+    $mail = htmlspecialchars($_POST["mail"]);
+    $date = htmlspecialchars($_POST["date"]);
+    $section = htmlspecialchars($_POST["section"]);
 
-    echo "info : ".$nom." ".$prenom." ".$mail." ".$date." ".$section;
-    echo "de : ".$old_nom." ".$old_prenom." ";
-    //echo $row["mail"];
-    //echo $row["prenom"];
 
-    if (isset($nom)) {
+    if (isset($_POST["nouveau_nom"])) {
       $query = $pdo->prepare("UPDATE  `pdo`.`etudiant` SET  `nom` =  '".$nom."' WHERE  `etudiant`.`mail` =  '".$row["mail"]."' AND `etudiant`.`prenom` = '".$row["prenom"]."'");
       $query->execute();
 
@@ -116,7 +112,7 @@
             </script>';
     }
 
-    if (isset($prenom)) {
+    if (isset($_POST["nouveau_prenom"])) {
       $query = $pdo->prepare("UPDATE etudiant SET prenom =  '".$prenom."' WHERE nom = '".$old_nom."' AND mail =  '".$mail."'");
       $query->execute();
 
@@ -125,7 +121,7 @@
             </script>';
     }
 
-    if (isset($mail) && !isset($prenom)) {
+    if (isset($_POST["mail"]) && !isset($_POST["nouveau_prenom"])) {
       $query = $pdo->prepare("UPDATE etudiant SET mail =  '".$mail."' WHERE nom =  '".$old_nom."' AND prenom = '".$old_prenom."'");
       $query->execute();
 
@@ -134,7 +130,7 @@
             </script>';
     }
 
-    if (isset($date) && !isset($prenom)) {
+    if (isset($_POST["date"]) && !isset($_POST["nouveau_prenom"])) {
       $query = $pdo->prepare("UPDATE etudiant SET date_naissance =  '".$date."' WHERE nom =  '".$old_nom."' AND prenom = '".$old_prenom."'");
       $query->execute();
 
@@ -143,7 +139,7 @@
             </script>';
     }
 
-    if (isset($section) && !isset($prenom)) {
+    if (isset($_POST["section"]) && !isset($_POST["nouveau_prenom"])) {
       $query = $pdo->prepare("UPDATE etudiant SET section =  '".$section."' WHERE nom =  '".$old_nom."' AND prenom = '".$old_prenom."'");
       $query->execute();
 
@@ -151,8 +147,5 @@
               alert ("Section modifiée !");
             </script>';
     }
-
-    echo '<a href = "etudiants.php" class="btn btn-default">Retour</a>';
-
 
   include 'footer.php';
