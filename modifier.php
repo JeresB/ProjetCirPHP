@@ -61,34 +61,40 @@
                 <input type="submit" class="btn btn-default" value = "Modifier l\'adresse mail" />
               </div>
             </div>
-          </form>';
+          </form>
 
-        //    <div class="form-group">
-        //      <label class="control-label col-sm-2" for="mail">Nouveau Mail :</label>
-        //        <div class="col-sm-10">
-        //          <input type="mail" class="form-control" name = "mail" id="mail">
-        //        </div>
-        //    </div>
-        //    <div class="form-group">
-        //      <label class="control-label col-sm-2" for="date">Nouveau date d\'anniversaire :</label>
-        //        <div class="col-sm-10">
-        //          <input type="date" class="form-control" name = "date" id="date">
-        //        </div>
-        //    </div>
-        //    <div class="form-group">
-        //      <label class="control-label col-sm-2" for="section">Nouvelle section :</label>
-        //        <div class="col-sm-10">
-        //          <input type="text" class="form-control" name = "section" id="section">
-        //        </div>
-        //    </div>
-        //    <input type="hidden" name="nom" value='.$old_nom.' />
-        //    <input type="hidden" name="prenom" value='.$old_prenom.' />
-        //    <div class="form-group">
-        //      <div class="col-sm-offset-2 col-sm-10">
-        //        <input type="submit" class="btn btn-default" value = "Modifier" /><a href = "etudiants.php" class="btn btn-default">Retour</a>
-        //      </div>
-        //    </div>
-        // </form>';
+          <form class="form-horizontal" method="post" action="modifier.php">
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="date">Nouvelle date d\'anniversaire :</label>
+              <div class="col-sm-10">
+                <input type="date" class="form-control" name = "date" id="date">
+              </div>
+          </div>
+             <input type="hidden" name="nom" value='.$row["nom"].' />
+             <input type="hidden" name="prenom" value='.$row["prenom"].' />
+             <div class="form-group">
+               <div class="col-sm-offset-2 col-sm-10">
+                 <input type="submit" class="btn btn-default" value = "Modifier la date de naissance" />
+               </div>
+             </div>
+           </form>
+
+           <form class="form-horizontal" method="post" action="modifier.php">
+           <div class="form-group">
+             <label class="control-label col-sm-2" for="section">Nouvelle section :</label>
+               <div class="col-sm-10">
+                 <input type="text" class="form-control" name = "section" id="section">
+               </div>
+           </div>
+              <input type="hidden" name="nom" value='.$row["nom"].' />
+              <input type="hidden" name="prenom" value='.$row["prenom"].' />
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                  <input type="submit" class="btn btn-default" value = "Modifier la section" />
+                </div>
+              </div>
+            </form>';
+
 
     $nom = $_POST["nouveau_nom"];
     $prenom = $_POST["nouveau_prenom"];
@@ -125,6 +131,24 @@
 
       echo '<script type="text/javascript">
               alert ("Adresse mail modifiée !");
+            </script>';
+    }
+
+    if (isset($date) && !isset($prenom)) {
+      $query = $pdo->prepare("UPDATE etudiant SET date_naissance =  '".$date."' WHERE nom =  '".$old_nom."' AND prenom = '".$old_prenom."'");
+      $query->execute();
+
+      echo '<script type="text/javascript">
+              alert ("Date de naissance modifiée !");
+            </script>';
+    }
+
+    if (isset($section) && !isset($prenom)) {
+      $query = $pdo->prepare("UPDATE etudiant SET section =  '".$section."' WHERE nom =  '".$old_nom."' AND prenom = '".$old_prenom."'");
+      $query->execute();
+
+      echo '<script type="text/javascript">
+              alert ("Section modifiée !");
             </script>';
     }
 
