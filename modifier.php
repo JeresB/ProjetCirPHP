@@ -39,13 +39,29 @@
                </div>
            </div>
            <input type="hidden" name="nom" value='.$row["nom"].' />
-           <input type="hidden" name="prenom" value='.$row["mail"].' />
+           <input type="hidden" name="mail" value='.$row["mail"].' />
            <div class="form-group">
              <div class="col-sm-offset-2 col-sm-10">
                <input type="submit" class="btn btn-default" value = "Modifier le prenom" />
              </div>
            </div>
-         </form>';
+         </form>
+
+         <form class="form-horizontal" method="post" action="modifier.php">
+            <div class="form-group">
+               <label class="control-label col-sm-2" for="mail">Nouveau Mail :</label>
+               <div class="col-sm-10">
+                  <input type="mail" class="form-control" name = "mail" id="mail">
+                </div>
+             </div>
+            <input type="hidden" name="nom" value='.$row["nom"].' />
+            <input type="hidden" name="prenom" value='.$row["prenom"].' />
+            <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                <input type="submit" class="btn btn-default" value = "Modifier l\'adresse mail" />
+              </div>
+            </div>
+          </form>';
 
         //    <div class="form-group">
         //      <label class="control-label col-sm-2" for="mail">Nouveau Mail :</label>
@@ -80,8 +96,8 @@
     $date = $_POST["date"];
     $section = $_POST["section"];
 
-    //echo "info : ".$nom." ".$prenom." ".$mail." ".$date." ".$section;
-    //echo "de : ".$old_nom." ".$old_prenom." ";
+    echo "info : ".$nom." ".$prenom." ".$mail." ".$date." ".$section;
+    echo "de : ".$old_nom." ".$old_prenom." ";
     //echo $row["mail"];
     //echo $row["prenom"];
 
@@ -95,11 +111,20 @@
     }
 
     if (isset($prenom)) {
-      $query = $pdo->prepare("UPDATE  `pdo`.`etudiant` SET  `prenom` =  '".$prenom."' WHERE  `etudiant`.`mail` =  '".$row["mail"]."'");
+      $query = $pdo->prepare("UPDATE etudiant SET prenom =  '".$prenom."' WHERE nom = '".$old_nom."' AND mail =  '".$mail."'");
       $query->execute();
 
       echo '<script type="text/javascript">
               alert ("Prenom modifié !");
+            </script>';
+    }
+
+    if (isset($mail) && !isset($prenom)) {
+      $query = $pdo->prepare("UPDATE etudiant SET mail =  '".$mail."' WHERE nom =  '".$old_nom."' AND prenom = '".$old_prenom."'");
+      $query->execute();
+
+      echo '<script type="text/javascript">
+              alert ("Adresse mail modifiée !");
             </script>';
     }
 
