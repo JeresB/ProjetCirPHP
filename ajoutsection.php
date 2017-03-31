@@ -22,10 +22,12 @@
           </div>
         </form>';
 
-  $section = $_POST["section"];
+  $section = htmlspecialchars($_POST["section"]);
 
-  if (isset($section)) {
-    $query = $pdo->prepare("INSERT INTO section (section) VALUES ('".$section."')");
+  if (isset($_POST["section"])) {
+    $requete = "INSERT INTO section (section) VALUES (:section)";
+    $query = $pdo->prepare($requete);
+    $query->bindParam(":section", $section, PDO::PARAM_STR, 15);
     $query->execute();
 
     header('Location: section.php');

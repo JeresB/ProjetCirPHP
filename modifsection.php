@@ -3,12 +3,12 @@
   include 'loginBDD.php';
   include 'header.php';
 
+  $section = htmlspecialchars($_POST["section"]);
+
   echo "<div class='container'>
         <div class='page-header'>
-          <h1>Modifier la section ".$_POST["section"]." <small>Back office</small></h1>
+          <h1>Modifier la section ".$section." <small>Back office</small></h1>
         </div>";
-
-  $section = $_POST["section"];
 
   echo '<form class="form-horizontal" method="post" action="modifsection.php">
           <div class="form-group">
@@ -25,17 +25,22 @@
           </div>
         </form>';
 
-  $nouvelle_section = $_POST["nouvelle_section"];
+  $nouvelle_section = htmlspecialchars($_POST["nouvelle_section"]);
 
-  if (isset($nouvelle_section)) {
-    $query = $pdo->prepare("DELETE FROM section WHERE `section` = '".$section."'");
+  if (isset($_POST["nouvelle_section"])) {
+    // Suppression de la section à modifier
+    $requete_supp = "DELETE FROM section WHERE `section` = :section";
+    $query = $pdo->prepare($requete_supp);
+    $query->bindParam(":section", $section, PDO::PARAM_STR, 15);
     $query->execute();
 
-    $query = $pdo->prepare("INSERT INTO section (section) VALUES ('".$nouvelle_section."')");
+    // Ajout d'une nouvelle section
+    $requete_add = "INSERT INTO section (section) VALUES (:nouvelle_section)";
+    $query = $pdo->prepare($requete_add);
+    $query->bindParam(":nouvelle_section", $nouvelle_section, PDO::PARAM_STR, 15);
     $query->execute();
 
     header('Location: section.php');
   }
-
 
   include 'footer.php';
