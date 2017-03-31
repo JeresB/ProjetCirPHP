@@ -46,16 +46,21 @@
           </div>
         </form>';
 
-  $nom = htmlentities($_POST["nom"]);
+  $nom = htmlspecialchars($_POST["nom"]);
   $prenom = htmlspecialchars($_POST["prenom"]);
   $mail = htmlspecialchars($_POST["mail"]);
   $date = htmlspecialchars($_POST["date"]);
   $section = htmlspecialchars($_POST["section"]);
 
-  echo "nom :".$nom."fin";
 
-  if (isset($_POST["nom"])) {
-    $query = $pdo->prepare("INSERT INTO etudiant (mail, nom, prenom, date_naissance, section) VALUES ('".$mail."', '".$nom."', '".$prenom."', '".$date."', '".$section."')");
+  if (isset($_POST["nom"]) && isset($_POST["prenom"]) && isset($_POST["mail"]) && isset($_POST["date"]) && isset($_POST["section"])) {
+    $requete = "INSERT INTO etudiant (mail, nom, prenom, date_naissance, section) VALUES (:mail, :nom, :prenom, :date, :section)";
+    $query = $pdo->prepare($requete);
+    $query->bindParam(":mail", $mail, PDO::PARAM_STR, 50);
+    $query->bindParam(":nom", $nom, PDO::PARAM_STR, 20);
+    $query->bindParam(":prenom", $prenom, PDO::PARAM_STR, 20);
+    $query->bindParam(":date", $date);
+    $query->bindParam(":section", $section, PDO::PARAM_STR, 15);
     $query->execute();
 
     header('Location: etudiants.php');
