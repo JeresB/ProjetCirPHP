@@ -8,9 +8,10 @@
   // On crée la requete de suppression
   $requete = "DELETE FROM etudiant WHERE nom = :nom AND prenom = :prenom";
   $query = $pdo->prepare($requete); // On prepare la requete
-   // On lie les variables nom et prenom à la requete
+  // On lie les variables nom et prenom à la requete
   $query->bindParam(":nom", $nom, PDO::PARAM_STR, 20);
   $query->bindParam(":prenom", $prenom, PDO::PARAM_STR, 20);
   $query->execute(); // On execute la requete
 
-  header('Location: etudiants.php'); // Redirection vers la liste des étudiants
+  // Redirection vers la liste des étudiants
+  header('Location: etudiants.php');
