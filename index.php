@@ -24,6 +24,8 @@
             </thead>
             <tbody>
               <?php
+                // Boucle for affiche nom, prenom et section
+                // de chaques lignes de la BDD etudiants
                 for ($i=0; $row = $query->fetch() ; $i++) {
                   echo "<tr>
                           <td>".$row["nom"]." ".$row["prenom"]."</td>
@@ -35,6 +37,7 @@
           </table>
 
           <?php
+            // Requête de selection de la BDD section
             $query = $pdo->prepare("SELECT * FROM section");
             $query->execute();
           ?>
@@ -47,6 +50,7 @@
             </thead>
             <tbody>
               <?php
+                // Boucle for qui affiche chaques sections
                 for ($i=0; $row = $query->fetch() ; $i++) {
                   echo "<tr>
                           <td>".$row["section"]."</td>
@@ -61,4 +65,5 @@
     <!-- /.container -->
 
 <?php
-    include 'footer.php';
+  // Inclusion du footer Html
+  include 'footer.php';
