@@ -4,6 +4,7 @@
   include 'loginBDD.php';
   include 'header.php';
 
+  // Requête de selection des sections
   $query_section = $pdo->prepare("SELECT * FROM section");
   $query_section->execute();
 
@@ -53,6 +54,7 @@
               <div class="col-sm-10">
                 <select class="form-control selectpicker" name = "section" id = "section" required>';
 
+                  // On recupère les sections dans la BDD pour crée le menu déroulant
                   for ($i=0; $row = $query_section->fetch() ; $i++) {
                     echo '<option>'.$row["section"].'</option>';
                   }
@@ -86,7 +88,9 @@
     $query->bindParam(":section", $section, PDO::PARAM_STR, 15);
     $query->execute();
 
+    // Redirection vers la liste des étudiants
     header('Location: etudiants.php');
   }
 
+  // Inclusion du footer Html
   include 'footer.php';
