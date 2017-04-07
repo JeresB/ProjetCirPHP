@@ -14,9 +14,6 @@
     <!-- Bootstrap Core CSS -->
     <link href="bootstrap.min.css" rel="stylesheet">
 
-    <!-- Font awesome CSS -->
-    <link href="font-awesome.min.css" rel="stylesheet">
-
     <!-- Custom CSS -->
     <link href="projetCirPhp.css" rel="stylesheet">
 
