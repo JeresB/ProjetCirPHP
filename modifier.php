@@ -6,10 +6,7 @@
   $old_nom = $_POST["nom"];
   echo "$old_nom";
   $old_prenom = $_POST["prenom"];
-  /*$old_mail=
-  $old_date_naissance=
-  $old_section =*/
-
+  
 
   echo "<div class='container'>
         <div class='page-header'>
@@ -23,7 +20,7 @@
 
         $query_section = $pdo->prepare("SELECT * FROM section");
         $query_section->execute();
-        $row_section= $query_section->fetch();
+        
 
 
   echo '<form class="form-horizontal" method="post" action="modifier.php">
