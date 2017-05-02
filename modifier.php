@@ -4,7 +4,7 @@
   include 'header.php';
 
   $old_nom = $_POST["nom"];
-  echo "$old_nom";
+  //echo "$old_nom";
   $old_prenom = $_POST["prenom"];
   
 
