@@ -4,9 +4,12 @@
   include 'header.php';
 
   $old_nom = $_POST["nom"];
-  //echo "$old_nom";
+  echo "$old_nom";
   $old_prenom = $_POST["prenom"];
-  
+  /*$old_mail=
+  $old_date_naissance=
+  $old_section =*/
+
 
   echo "<div class='container'>
         <div class='page-header'>
@@ -66,6 +69,7 @@
                 <select class="form-control selectpicker" name = "nouveau_section" id = "section" required>';
                   for ($i=0; $row_section = $query_section->fetch() ; $i++) {
                     echo '<option>'.$row_section["section"].'</option>';
+
                   }
                 echo '</select>
               </div>
@@ -73,42 +77,55 @@
           <input type="hidden" name="section" value='.$row_section.' />
           <input type="submit"/>
         </form>';
+
             $nom = htmlspecialchars($_POST["nouveau_nom"]);
-            //echo "$nom";
             $prenom = htmlspecialchars($_POST["nouveau_prenom"]);
             $mail = htmlspecialchars($_POST["nouveau_mail"]);
             $date = htmlspecialchars($_POST["nouveau_date"]);
             $section = htmlspecialchars($_POST["nouveau_section"]);
 
-            
-    if (isset($nom) AND $nom != $row['nom']) {
+            /*if (isset($nom) AND $nom != $row['nom'] ) {
+
+              $query = $pdo->prepare("UPDATE etudiant SET  nom =  '".$nom."' WHERE  nom =  '".$row['nom']."'");
+              $query->execute();
+
+
+              echo '<script type="text/javascript">
+                      alert ("Nom modifié !");
+                    </script>';
+              var_dump($row['nom']);
+            }*/
+
+
+    if (isset($_POST["nouveau_nom"]) AND $_POST["nouveau_nom"] != $row['nom']) {
       $query = $pdo->prepare("UPDATE  `etudiant` SET  `nom` =  '".$nom."' WHERE  `mail` =  '".$row["mail"]."'");
       $query->execute();
       echo '<script type="text/javascript">
               alert ("Nom modifié !");
             </script>';
     }
-    if (isset($prenom) AND $prenom != $row['prenom']) {
+    if (isset($_POST["nouveau_prenom"]) AND $_POST["nouveau_prenom"] != $row['prenom']) {
       $query = $pdo->prepare("UPDATE etudiant SET prenom =  '".$prenom."' WHERE mail =  '".$row["mail"]."'");
       $query->execute();
       echo '<script type="text/javascript">
               alert ("Prenom modifié !");
             </script>';
     }
-    if (isset($mail) AND $mail != $row['mail'] ) {
+    if (isset($_POST["nouveau_mail"]) AND $_POST["nouveau_mail"] != $row['mail'] ) {
       $query = $pdo->prepare("UPDATE etudiant SET mail =  '".$mail."' WHERE mail =  '".$row["mail"]."'");
       $query->execute();
       echo '<script type="text/javascript">
               alert ("Adresse mail modifiée !");
             </script>';
     }
-    if (isset($date) AND  $date != $row["date_naissance"]) {
+    if (isset($_POST["nouveau_date"]) AND  $_POST["nouveau_date"] != $row["date_naissance"]) {
       $query = $pdo->prepare("UPDATE etudiant SET date_naissance =  '".$date."' WHERE mail =  '".$row["mail"]."'");
       echo '<script type="text/javascript">
               alert ("Date de naissance modifiée !");
             </script>';
     }
-    if (isset($section)  AND $section != $row_section["section"]) {
+    if (isset($_POST["nouveau_section"])  AND $_POST["nouveau_section"] != $row_section["section"]) {
+
       $query = $pdo->prepare("UPDATE etudiant SET section =  '".$section."' WHERE mail =  '".$row["mail"]."'");
       $query->execute();
       echo '<script type="text/javascript">
@@ -116,4 +133,6 @@
             </script>';
     }
             include 'footer.php';
+
+          
 
