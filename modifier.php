@@ -6,10 +6,7 @@
   $old_nom = $_POST["nom"];
   echo "$old_nom";
   $old_prenom = $_POST["prenom"];
-  /*$old_mail=
-  $old_date_naissance=
-  $old_section =*/
-
+  
 
   echo "<div class='container'>
         <div class='page-header'>
