@@ -96,6 +96,6 @@
               alert ("Section modifiée !");
             </script>';
     }
-            include 'footer.php';
+            
 
   include 'footer.php';
