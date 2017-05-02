@@ -80,19 +80,7 @@
             $date = htmlspecialchars($_POST["nouveau_date"]);
             $section = htmlspecialchars($_POST["nouveau_section"]);
 
-            /*if (isset($nom) AND $nom != $row['nom'] ) {
-
-              $query = $pdo->prepare("UPDATE etudiant SET  nom =  '".$nom."' WHERE  nom =  '".$row['nom']."'");
-              $query->execute();
-
-
-              echo '<script type="text/javascript">
-                      alert ("Nom modifié !");
-                    </script>';
-              var_dump($row['nom']);
-            }*/
-
-
+            
     if (isset($nom) AND $nom != $row['nom']) {
       $query = $pdo->prepare("UPDATE  `etudiant` SET  `nom` =  '".$nom."' WHERE  `mail` =  '".$row["mail"]."'");
       $query->execute();
